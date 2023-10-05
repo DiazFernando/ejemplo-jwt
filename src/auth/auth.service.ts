@@ -20,7 +20,7 @@ export class AuthService {
       throw new BadRequestException('El usuario ya existe')
     }
     const  pass_encriptada = await bcrypt.hash(registerDto.password,10)
-    return await this.userService.create(new User(registerDto.email,pass_encriptada,registerDto.username))
+    return await this.userService.create(new User(registerDto.email,pass_encriptada,registerDto.username,registerDto.role))
   }
 
   async login({email,password}:LoginDto){
@@ -32,7 +32,7 @@ export class AuthService {
     if(!isPasswordValid)
       throw new UnauthorizedException('Password incorrecto');
 
-    const payload = {email: user.email}
+    const payload = {email: user.email,role: user.role, username: user.username}
 
     const token = await this.jwtService.signAsync(payload);
 

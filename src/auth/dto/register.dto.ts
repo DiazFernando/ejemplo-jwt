@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
+import { Role } from "src/common/enum/role.enum";
 
 export class RegisterDto{
     
@@ -13,4 +14,6 @@ export class RegisterDto{
     @IsString()
     @MinLength(6)
     readonly password:string;
+
+    readonly role:Role;
 }
